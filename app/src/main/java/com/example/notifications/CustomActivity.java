@@ -51,22 +51,20 @@ public class CustomActivity extends BaseActivity implements OnClickListener{
 		RemoteViews view_custom = new RemoteViews(getPackageName(), R.layout.view_custom);
 		view_custom.setImageViewResource(R.id.custom_icon, R.drawable.icon);
 //		view_custom.setInt(R.id.custom_icon,"setBackgroundResource",R.drawable.icon);
-		view_custom.setTextViewText(R.id.tv_custom_title, "����ͷ��");
-		view_custom.setTextViewText(R.id.tv_custom_content, "������ʿ�ٷ�������Ѿ��������˧���-�ܿ�ѷ������������Ľ��");
+		view_custom.setTextViewText(R.id.tv_custom_title, "setTextViewText");
+		view_custom.setTextViewText(R.id.tv_custom_content, "setTextViewText");
 //		view_custom.setTextViewText(R.id.tv_custom_time, String.valueOf(System.currentTimeMillis()));
-		//������ʾ
 //		view_custom.setViewVisibility(R.id.tv_custom_time, View.VISIBLE);
-//		view_custom.setLong(R.id.tv_custom_time,"setTime", System.currentTimeMillis());//��֪��Ϊɶ�ᱨ�?��ῴ����־
-		//����number
+//		view_custom.setLong(R.id.tv_custom_time,"setTime", System.currentTimeMillis());
 //		NumberFormat num = NumberFormat.getIntegerInstance();
 //		view_custom.setTextViewText(R.id.tv_custom_num, num.format(this.number));
 		mBuilder = new Builder(this);
 		mBuilder.setContent(view_custom)
 				.setContentIntent(getDefalutIntent(Notification.FLAG_AUTO_CANCEL))
-				.setWhen(System.currentTimeMillis())// ֪ͨ�����ʱ�䣬����֪ͨ��Ϣ����ʾ
-				.setTicker("������Ѷ")
-				.setPriority(Notification.PRIORITY_DEFAULT)// ���ø�֪ͨ���ȼ�
-				.setOngoing(false)//�������ڽ��е�   trueΪ���ڽ���  Ч���.flagһ��
+				.setWhen(System.currentTimeMillis())
+				.setTicker("setTicker")
+				.setPriority(Notification.PRIORITY_DEFAULT)
+				.setOngoing(false)
 				.setSmallIcon(R.drawable.icon);
 //		mNotificationManager.notify(notifyId, mBuilder.build());
 		Notification notify = mBuilder.build();
@@ -78,17 +76,13 @@ public class CustomActivity extends BaseActivity implements OnClickListener{
 		mNotificationManager.notify(notifyId, notify);
 	}
 	
-	/**
-	 * ��ť��֪ͨ��
-	 */
+
 	public void showButtonNotify(){
 		NotificationCompat.Builder mBuilder = new Builder(this);
 		RemoteViews mRemoteViews = new RemoteViews(getPackageName(), R.layout.view_custom_button);
 		mRemoteViews.setImageViewResource(R.id.custom_song_icon, R.drawable.sing_icon);
-		//API3.0 ���ϵ�ʱ����ʾ��ť��������ʧ
-		mRemoteViews.setTextViewText(R.id.tv_custom_song_singer, "�ܽ���");
-		mRemoteViews.setTextViewText(R.id.tv_custom_song_name, "������");
-		//���汾�ŵ��ڣ�3��0������ô����ʾ��ť
+		mRemoteViews.setTextViewText(R.id.tv_custom_song_singer, "setTextViewText");
+		mRemoteViews.setTextViewText(R.id.tv_custom_song_name, "setTextViewText");
 		if(BaseTools.getSystemVersion() <= 9){
 			mRemoteViews.setViewVisibility(R.id.ll_custom_button, View.GONE);
 		}else{
@@ -101,32 +95,26 @@ public class CustomActivity extends BaseActivity implements OnClickListener{
 			}
 		}
 
-		//������¼�����
 		Intent buttonIntent = new Intent(ACTION_BUTTON);
-		/* ��һ�װ�ť */
 		buttonIntent.putExtra(INTENT_BUTTONID_TAG, BUTTON_PREV_ID);
-		//������˹㲥����INTENT�ı�����getBroadcast����
 		PendingIntent intent_prev = PendingIntent.getBroadcast(this, 1, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mRemoteViews.setOnClickPendingIntent(R.id.btn_custom_prev, intent_prev);
-		/* ����/��ͣ  ��ť */
 		buttonIntent.putExtra(INTENT_BUTTONID_TAG, BUTTON_PALY_ID);
 		PendingIntent intent_paly = PendingIntent.getBroadcast(this, 2, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mRemoteViews.setOnClickPendingIntent(R.id.btn_custom_play, intent_paly);
-		/* ��һ�� ��ť  */
 		buttonIntent.putExtra(INTENT_BUTTONID_TAG, BUTTON_NEXT_ID);
 		PendingIntent intent_next = PendingIntent.getBroadcast(this, 3, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mRemoteViews.setOnClickPendingIntent(R.id.btn_custom_next, intent_next);
 		
 		mBuilder.setContent(mRemoteViews)
 				.setContentIntent(getDefalutIntent(Notification.FLAG_ONGOING_EVENT))
-				.setWhen(System.currentTimeMillis())// ֪ͨ�����ʱ�䣬����֪ͨ��Ϣ����ʾ
-				.setTicker("���ڲ���")
-				.setPriority(Notification.PRIORITY_DEFAULT)// ���ø�֪ͨ���ȼ�
+				.setWhen(System.currentTimeMillis())
+				.setTicker("setTicker")
+				.setPriority(Notification.PRIORITY_DEFAULT)
 				.setOngoing(true)
 				.setSmallIcon(R.drawable.sing_icon);
 		Notification notify = mBuilder.build();
 		notify.flags = Notification.FLAG_ONGOING_EVENT;
-		//�ᱨ�?�����ҽ��˼·
 //		notify.contentView = mRemoteViews;
 //		notify.contentIntent = PendingIntent.getActivity(this, 0, new Intent(), 0);
 		mNotificationManager.notify(200, notify);
@@ -146,7 +134,6 @@ public class CustomActivity extends BaseActivity implements OnClickListener{
 		}
 	}
 	
-	/** ��ť��֪ͨ������㲥���� */
 	public void initButtonReceiver(){
 		bReceiver = new ButtonBroadcastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
@@ -155,15 +142,10 @@ public class CustomActivity extends BaseActivity implements OnClickListener{
 	}
 	
 	public final static String INTENT_BUTTONID_TAG = "ButtonId";
-	/** ��һ�� ��ť��� ID */
 	public final static int BUTTON_PREV_ID = 1;
-	/** ����/��ͣ ��ť��� ID */
 	public final static int BUTTON_PALY_ID = 2;
-	/** ��һ�� ��ť��� ID */
 	public final static int BUTTON_NEXT_ID = 3;
-	/**
-	 *	 �㲥����ť���ʱ�� 
-	 */
+
 	public class ButtonBroadcastReceiver extends BroadcastReceiver{
 
 		@Override
@@ -171,28 +153,27 @@ public class CustomActivity extends BaseActivity implements OnClickListener{
 			// TODO Auto-generated method stub
 			String action = intent.getAction();
 			if(action.equals(ACTION_BUTTON)){
-				//ͨ��ݹ�����ID�жϰ�ť������Ի���ͨ��getResultCode()�����Ӧ����¼�
 				int buttonId = intent.getIntExtra(INTENT_BUTTONID_TAG, 0);
 				switch (buttonId) {
 				case BUTTON_PREV_ID:
-					Log.d(TAG , "��һ��");
-					Toast.makeText(getApplicationContext(), "��һ��", Toast.LENGTH_SHORT).show();
+					Log.d(TAG , "BUTTON_PREV_ID");
+					Toast.makeText(getApplicationContext(), "BUTTON_PREV_ID", Toast.LENGTH_SHORT).show();
 					break;
 				case BUTTON_PALY_ID:
 					String play_status = "";
 					isPlay = !isPlay;
 					if(isPlay){
-						play_status = "��ʼ����";
+						play_status = "BUTTON_PALY_ID";
 					}else{
-						play_status = "����ͣ";
+						play_status = "BUTTON_PALY_ID";
 					}
 					showButtonNotify();
 					Log.d(TAG , play_status);
 					Toast.makeText(getApplicationContext(), play_status, Toast.LENGTH_SHORT).show();
 					break;
 				case BUTTON_NEXT_ID:
-					Log.d(TAG , "��һ��");
-					Toast.makeText(getApplicationContext(), "��һ��", Toast.LENGTH_SHORT).show();
+					Log.d(TAG , "BUTTON_NEXT_ID");
+					Toast.makeText(getApplicationContext(), "BUTTON_NEXT_ID", Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;

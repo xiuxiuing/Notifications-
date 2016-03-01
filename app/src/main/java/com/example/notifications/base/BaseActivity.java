@@ -1,7 +1,6 @@
 package com.example.notifications.base;
 
 import android.app.Activity;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -30,7 +29,7 @@ public class BaseActivity extends Activity {
 	
 
 	public void clearAllNotify() {
-		mNotificationManager.cancelAll();// ɾ���㷢������֪ͨ
+		mNotificationManager.cancelAll();
 	}
 	
 

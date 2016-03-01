@@ -17,9 +17,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-/*
- * ֪ͨ��Ӧ��
- */
+
 public class MainActivity extends BaseActivity implements OnClickListener{
 	private Button btn_show;
 	private Button btn_bigstyle_show;
@@ -63,11 +61,11 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	
 	private void initNotify(){
 		mBuilder = new NotificationCompat.Builder(this);
-		mBuilder.setContentTitle("���Ա���")
-				.setContentText("��������")
+		mBuilder.setContentTitle("setContentTitle")
+				.setContentText("setContentText")
 				.setContentIntent(getDefalutIntent(Notification.FLAG_AUTO_CANCEL))
 //				.setNumber(number)
-				.setTicker("����֪ͨ����")
+				.setTicker("setTicker")
 				.setWhen(System.currentTimeMillis())
 				.setPriority(Notification.PRIORITY_DEFAULT)
 //				.setAutoCancel(true)
@@ -78,10 +76,10 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	}
 	
 	public void showNotify(){
-		mBuilder.setContentTitle("���Ա���")
-				.setContentText("��������")
+		mBuilder.setContentTitle("setContentTitle")
+				.setContentText("setContentText")
 //				.setNumber(number)
-				.setTicker("����֪ͨ����");
+				.setTicker("setTicker");
 		mNotificationManager.notify(notifyId, mBuilder.build());
 //		mNotification.notify(getResources().getString(R.string.app_name), notiId, mBuilder.build());
 	}
@@ -125,43 +123,33 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		// notiId, mBuilder.build());
 	}
 
-	/** ��ʾ��פ֪ͨ�� */
 	public void showCzNotify(){
-//		Notification mNotification = new Notification();//Ϊ�˼������⣬���ø÷��������Զ�����BUILD��ʽ����
-//		Notification mNotification  = new Notification.Builder(this).getNotification();//���ַ�ʽ�Ѿ���ʱ
+//		Notification mNotification = new Notification();
+//		Notification mNotification  = new Notification.Builder(this).getNotification();
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
-//		//PendingIntent ��ת����
-		PendingIntent pendingIntent=PendingIntent.getActivity(this, 0, getIntent(), 0);  
+		PendingIntent pendingIntent=PendingIntent.getActivity(this, 0, getIntent(), 0);
 		mBuilder.setSmallIcon(R.drawable.ic_launcher)
-				.setTicker("��פ֪ͨ����")
-				.setContentTitle("��פ����")
-				.setContentText("ʹ��cancel()�����ſ��԰���ȥ��Ŷ")
+				.setTicker("setTicker")
+				.setContentTitle("setContentTitle")
+				.setContentText("setContentText")
 				.setContentIntent(pendingIntent);
 		Notification mNotification = mBuilder.build();
-		//����֪ͨ  ��Ϣ  ͼ��  
 		mNotification.icon = R.drawable.ic_launcher;
-		//��֪ͨ���ϵ����֪ͨ���Զ�����֪ͨ
-		mNotification.flags = Notification.FLAG_ONGOING_EVENT;//FLAG_ONGOING_EVENT �ڶ�����פ�����Ե�����������ȥ��  FLAG_AUTO_CANCEL  ������������ȥ��
-		//������ʾ֪ͨʱ��Ĭ�ϵķ����𶯡�LightЧ��  
+		mNotification.flags = Notification.FLAG_ONGOING_EVENT;
 		mNotification.defaults = Notification.DEFAULT_VIBRATE;
-		//���÷�����Ϣ������
-		mNotification.tickerText = "֪ͨ����";
-		//���÷���֪ͨ��ʱ��  
-		mNotification.when=System.currentTimeMillis(); 
-//		mNotification.flags = Notification.FLAG_AUTO_CANCEL; //��֪ͨ���ϵ����֪ͨ���Զ�����֪ͨ
-//		mNotification.setLatestEventInfo(this, "��פ����", "ʹ��cancel()�����ſ��԰���ȥ��Ŷ", null); //������ϸ����Ϣ  ,������������Ѿ������� 
+		mNotification.tickerText = "tickerText";
+		mNotification.when=System.currentTimeMillis();
+//		mNotification.flags = Notification.FLAG_AUTO_CANCEL;
+//		mNotification.setLatestEventInfo(this, "setLatestEventInfo", "setLatestEventInfo", null);
 		mNotificationManager.notify(notifyId, mNotification);
 	}
 	
-	/** ��ʾ֪ͨ�������ת��ָ��Activity */
 	public void showIntentActivityNotify(){
-		// Notification.FLAG_ONGOING_EVENT --���ó�פ Flag;Notification.FLAG_AUTO_CANCEL ֪ͨ���ϵ����֪ͨ���Զ�����֪ͨ
-//		notification.flags = Notification.FLAG_AUTO_CANCEL; //��֪ͨ���ϵ����֪ͨ���Զ�����֪ͨ
-		mBuilder.setAutoCancel(true)//�������֪ͨ����ʧ  
-				.setContentTitle("���Ա���")
-				.setContentText("�����ת")
-				.setTicker("����");
-		//�������ͼACTION����ת��Intent
+//		notification.flags = Notification.FLAG_AUTO_CANCEL;
+		mBuilder.setAutoCancel(true)
+				.setContentTitle("setContentTitle")
+				.setContentText("setContentText")
+				.setTicker("setTicker");
 		Intent resultIntent = new Intent(this, MainActivity.class);
 		resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -169,19 +157,15 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		mNotificationManager.notify(notifyId, mBuilder.build());
 	}
 	
-	/** ��ʾ֪ͨ�������Apk */
 	public void showIntentApkNotify(){
-		// Notification.FLAG_ONGOING_EVENT --���ó�פ Flag;Notification.FLAG_AUTO_CANCEL ֪ͨ���ϵ����֪ͨ���Զ�����֪ͨ
-//		notification.flags = Notification.FLAG_AUTO_CANCEL; //��֪ͨ���ϵ����֪ͨ���Զ�����֪ͨ
-		mBuilder.setAutoCancel(true)//�������֪ͨ����ʧ  
-				.setContentTitle("�������")
-				.setContentText("�����װ")
-				.setTicker("������ɣ�");
-		//����������Ҫ�����Ǵ�һ����װ��
+//		notification.flags = Notification.FLAG_AUTO_CANCEL;
+		mBuilder.setAutoCancel(true)
+				.setContentTitle("setContentTitle")
+				.setContentText("setContentText")
+				.setTicker("setTicker");
 		Intent apkIntent = new Intent();
 		apkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		apkIntent.setAction(android.content.Intent.ACTION_VIEW);
-		//ע�⣺��������APK�Ƿ���assets�ļ����£���ȡ·������ֱ�Ӷ�ȡ�ģ�Ҫͨ��COYP��ȥ�ڶ�����ֱ�Ӷ�ȡ�Լ����ص�PATH�����ֻ����һ����תAPK��ʵ�ʴ򲻿���
 		String apk_path = "file:///android_asset/cs.apk";
 //		Uri uri = Uri.parse(apk_path);
 		Uri uri = Uri.fromFile(new File(apk_path));
